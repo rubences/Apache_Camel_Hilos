@@ -1,0 +1,33 @@
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring" 
+	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-2.13.2.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf-2.13.2-spring.xsd
+       http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd">
+
+	<!-- Propiedades  -->
+	 <import resource="properties-context.xml"/>
+	
+	
+	<!-- Escaneo de componentes  -->
+	<context:component-scan base-package="com.*" />
+
+	<!-- Escaneo de rutas de Camel -->
+	<camel:camelContext id="example">
+		<camel:propertyPlaceholder id="prop" location="ref:osgiprop"/>
+		<camel:contextScan />
+	</camel:camelContext>
+	
+	<!-- Endpoint CXF -->
+	<cxf:cxfEndpoint id="pruebaEndpoint" serviceClass="com.camel.hilos.sei.HiloServicio" address="/notificar" />
+	
+</beans>
+
